@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AuraMesh — Migraine & Barometric Intelligence</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', ' system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            roseblush: {
+              50: '#fff1f2',
+              100: '#fde8e9',
+              200: '#fbd0d5',
+              300: '#f7aab3',
+              400: '#f17a8a',
+              500: '#e64d64',
+              600: '#d22f4b',
+              900: '#261419',
+              950: '#160b0e'
+            },
+            obsidian: {
+              800: '#18181f',
+              900: '#101015',
+              950: '#0a0a0e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --sensory-filter: none;
+    }
+    body.photophobia-mode {
+      filter: sepia(28%) brightness(82%) contrast(88%);
+      background-color: #080708 !important;
+    }
+    body.photophobia-mode .bright-glow {
+      opacity: 0.25 !important;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(24, 24, 31, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(241, 122, 138, 0.35);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(241, 122, 138, 0.6);
+    }
+    /* Screenshot Goal Card Tactile Hover */
+    .goal-launcher-card {
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .goal-launcher-card:hover {
+      transform: translateY(-2px) scale(1.005);
+    }
+    .goal-launcher-card:active {
+      transform: translateY(0px) scale(0.995);
+    }
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(1.04); }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 3.5s infinite ease-in-out;
+    }
+    /* Cranial Zone SVG Interactive Styling */
+    .cranial-zone {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .cranial-zone:hover {
+      fill-opacity: 0.65;
+      stroke-width: 2.5px;
+    }
+    .cranial-zone.active {
+      fill: #f17a8a !important;
+      fill-opacity: 0.78 !important;
+      stroke: #fff1f2 !important;
+      stroke-width: 2.5px;
+    }
+  </style>
+</head>
+
+<body class="bg-obsidian-950 text-zinc-100 font-sans antialiased selection:bg-roseblush-500/30 selection:text-roseblush-200 min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- AMBIENT SENSORY-SAFE BACKDROP -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 bright-glow">
+    <div class="absolute -top-40 left-1/4 w-[34rem] h-[34rem] bg-roseblush-500/10 rounded-full blur-[130px]"></div>
+    <div class="absolute top-1/3 -right-32 w-[28rem] h-[28rem] bg-indigo-500/10 rounded-full blur-[130px]"></div>
+    <div class="absolute bottom-0 left-10 w-[26rem] h-[26rem] bg-amber-500/5 rounded-full blur-[120px]"></div>
+  </div>
+
+  <!-- STICKY TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-obsidian-950/85 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <!-- Brand + Live Mesh Status -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-roseblush-200 via-roseblush-400 to-roseblush-600 flex items-center justify-center shadow-lg shadow-roseblush-500/20 text-obsidian-950 font-bold">
+          <i class="ph-fill ph-brain text-xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold tracking-tight text-base sm:text-lg text-white">AuraMesh</span>
+            <span class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-mono uppercase tracking-wider rounded-full bg-roseblush-500/15 text-roseblush-300 border border-roseblush-400/25">
+              <span class="w-1.5 h-1.5 rounded-full bg-roseblush-400 animate-ping"></span>
+              SignalMesh v4.2
+            </span>
+          </div>
+          <p class="text-xs text-zinc-400 hidden sm:block">Barometric, Circadian & Biometric Migraine Intelligence</p>
+        </div>
+      </div>
+
+      <!-- Quick Barometric Status Pill (Center) -->
+      <div class="hidden lg:flex items-center gap-4 px-3.5 py-1.5 rounded-2xl bg-obsidian-900/90 border border-white/10 text-xs">
+        <div class="flex items-center gap-1.5">
+          <i class="ph-duotone ph-gauge text-roseblush-400 text-base"></i>
+          <span class="text-zinc-400">Barometer:</span>
+          <span id="nav-pressure-val" class="font-mono font-semibold text-white">1006.4 hPa</span>
+          <span id="nav-pressure-delta" class="font-mono text-roseblush-400 font-medium">(-6.8 hPa / 6h)</span>
+        </div>
+        <div class="h-3.5 w-px bg-white/10"></div>
+        <div class="flex items-center gap-1.5">
+          <i class="ph-duotone ph-shield-warning text-amber-400 text-base"></i>
+          <span class="text-zinc-400">24h Risk:</span>
+          <span id="nav-risk-badge" class="font-mono font-semibold text-roseblush-300">78% HIGH</span>
+        </div>
+      </div>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-2">
+        <!-- Quick Goal Launcher Modal / Drawer Trigger -->
+        <button onclick="toggleLauncherModal()" class="px-3 py-2 rounded-xl bg-roseblush-100 text-obsidian-950 hover:bg-roseblush-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 shadow-md shadow-roseblush-500/10 transition" title="Open 6-Goal Focus Launcher">
+          <i class="ph-bold ph-squares-four text-base"></i>
+          <span class="hidden sm:inline">6 Goals</span>
+        </button>
+
+        <!-- Photophobia / Sensory-Safe Mode Toggle -->
+        <button id="photophobia-btn" onclick="togglePhotophobiaMode()" class="px-3 py-2 rounded-xl bg-obsidian-800 hover:bg-zinc-800 text-zinc-200 border border-white/10 text-xs sm:text-sm flex items-center gap-1.5 transition" title="Dim blue light & contrast for active light sensitivity">
+          <i class="ph-duotone ph-eye-closed text-amber-300 text-base"></i>
+          <span class="hidden md:inline" id="photophobia-label">Sensory-Safe</span>
+        </button>
+
+        <!-- SignalMesh Coordinate Inspector Drawer Button -->
+        <button onclick="toggleMeshDrawer()" class="px-3 py-2 rounded-xl bg-obsidian-800 hover:bg-zinc-800 text-roseblush-300 border border-roseblush-400/25 font-mono text-xs sm:text-sm flex items-center gap-1.5 transition" title="Inspect Live SignalMesh Coordinates & FTS5 Index">
+          <i class="ph-duotone ph-graph text-base"></i>
+          <span class="hidden md:inline">Mesh</span>
+          <span id="mesh-cell-count" class="px-1.5 py-0.5 text-[10px] rounded-md bg-roseblush-500/20 text-roseblush-200">42</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+    <!-- =====================================================================
+         HERO SECTION: SCREENSHOT-AUTHENTIC 6-GOAL INTERACTIVE LAUNCHER + RADAR
+         ===================================================================== -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      
+      <!-- LEFT COLUMN (5 cols): Exact Screenshot Rose-Blush 6-Card Interactive Stack -->
+      <div class="lg:col-span-5 rounded-3xl p-4 sm:p-5 bg-[#FCE4E6] dark:bg-[#F9Dce0] text-zinc-900 shadow-2xl border border-roseblush-300/60 flex flex-col justify-between">
+        <div class="flex items-center justify-between px-1 pb-3 mb-2 border-b border-rose-950/10">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-full bg-obsidian-900 text-roseblush-200 flex items-center justify-center font-bold text-sm">
+              <i class="ph-fill ph-sparkle"></i>
+            </span>
+            <div>
+              <h2 class="font-bold text-sm sm:text-base text-zinc-900 leading-tight">What would you like to solve today?</h2>
+              <p class="text-xs text-zinc-600">Tap any goal to focus & run live telemetry</p>
+            </div>
+          </div>
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-zinc-900/10 text-zinc-800 font-medium">6 Core Modules</span>
+        </div>
+
+        <!-- The 6 White Rounded Cards Matching the Screenshot -->
+        <div class="space-y-2.5 my-auto" id="screenshot-launcher-stack">
+          <!-- Card 1 -->
+          <button onclick="focusGoalModule(1, 'Get advance warnings before migraines hit')" class="goal-launcher-card w-full text-left bg-white hover:bg-rose-50/70 rounded-2xl p-3.5 sm:p-4 shadow-sm border border-rose-200/60 flex items-center gap-4 group">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 group-hover:bg-roseblush-100 flex items-center justify-center text-zinc-500 group-hover:text-roseblush-600 transition shrink-0">
+              <i class="ph-fill ph-bell text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-[15px] sm:text-base text-zinc-900 leading-snug">Get advance warnings before migraines hit</p>
+              <p class="text-xs text-zinc-500 mt-0.5 flex items-center gap-1.5">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                <span id="card1-sub">Alert: -6.8 hPa drop detected • 78% risk window</span>
+              </p>
+            </div>
+            <i class="ph-bold ph-caret-right text-zinc-400 group-hover:text-zinc-800 transition"></i>
+          </button>
+
+          <!-- Card 2 -->
+          <button onclick="focusGoalModule(2, 'Understand what\'s triggering my migraines')" class="goal-launcher-card w-full text-left bg-white hover:bg-rose-50/70 rounded-2xl p-3.5 sm:p-4 shadow-sm border border-rose-200/60 flex items-center gap-4 group">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 group-hover:bg-roseblush-100 flex items-center justify-center text-zinc-500 group-hover:text-roseblush-600 transition shrink-0">
+              <i class="ph-bold ph-magnifying-glass text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-[15px] sm:text-base text-zinc-900 leading-snug">Understand what's triggering my migraines</p>
+              <p class="text-xs text-zinc-500 mt-0.5" id="card2-sub">Top triggers: Pressure Drop (84%), Sleep Debt (68%)</p>
+            </div>
+            <i class="ph-bold ph-caret-right text-zinc-400 group-hover:text-zinc-800 transition"></i>
+          </button>
+
+          <!-- Card 3 -->
+          <button onclick="focusGoalModule(3, 'Finally find a pattern in when they happen')" class="goal-launcher-card w-full text-left bg-white hover:bg-rose-50/70 rounded-2xl p-3.5 sm:p-4 shadow-sm border border-rose-200/60 flex items-center gap-4 group">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 group-hover:bg-roseblush-100 flex items-center justify-center text-zinc-500 group-hover:text-roseblush-600 transition shrink-0">
+              <i class="ph-bold ph-chart-line-up text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-[15px] sm:text-base text-zinc-900 leading-snug">Finally find a pattern in when they happen</p>
+              <p class="text-xs text-zinc-500 mt-0.5" id="card3-sub">Peak cluster: Sat AM ("Stress Let-down") & 5–8 AM</p>
+            </div>
+            <i class="ph-bold ph-caret-right text-zinc-400 group-hover:text-zinc-800 transition"></i>
+          </button>
+
+          <!-- Card 4 -->
+          <button onclick="focusGoalModule(4, 'Plan my week around low-risk days')" class="goal-launcher-card w-full text-left bg-white hover:bg-rose-50/70 rounded-2xl p-3.5 sm:p-4 shadow-sm border border-rose-200/60 flex items-center gap-4 group">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 group-hover:bg-roseblush-100 flex items-center justify-center text-zinc-500 group-hover:text-roseblush-600 transition shrink-0">
+              <i class="ph-fill ph-calendar-blank text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-[15px] sm:text-base text-zinc-900 leading-snug">Plan my week around low-risk days</p>
+              <p class="text-xs text-zinc-500 mt-0.5" id="card4-sub">4 Green Low-Risk days ahead • 2 tasks need moving</p>
+            </div>
+            <i class="ph-bold ph-caret-right text-zinc-400 group-hover:text-zinc-800 transition"></i>
+          </button>
+
+          <!-- Card 5 -->
+          <button onclick="focusGoalModule(5, 'Track medication timing better')" class="goal-launcher-card w-full text-left bg-white hover:bg-rose-50/70 rounded-2xl p-3.5 sm:p-4 shadow-sm border border-rose-200/60 flex items-center gap-4 group">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 group-hover:bg-roseblush-100 flex items-center justify-center text-zinc-500 group-hover:text-roseblush-600 transition shrink-0">
+              <i class="ph-fill ph-pill text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-[15px] sm:text-base text-zinc-900 leading-snug">Track medication timing better</p>
+              <p class="text-xs text-zinc-500 mt-0.5" id="card5-sub">Golden 60m window ready • MOH safety: 3/10 days</p>
+            </div>
+            <i class="ph-bold ph-caret-right text-zinc-400 group-hover:text-zinc-800 transition"></i>
+          </button>
+
+          <!-- Card 6 -->
+          <button onclick="focusGoalModule(6, 'Just see if weather actually affects me')" class="goal-launcher-card w-full text-left bg-white hover:bg-rose-50/70 rounded-2xl p-3.5 sm:p-4 shadow-sm border border-rose-200/60 flex items-center gap-4 group">
+            <div class="w-9 h-9 rounded-xl bg-zinc-100 group-hover:bg-roseblush-100 flex items-center justify-center text-zinc-500 group-hover:text-roseblush-600 transition shrink-0">
+              <i class="ph-fill ph-cloud-rain text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-[15px] sm:text-base text-zinc-900 leading-snug">Just see if weather actually affects me</p>
+              <p class="text-xs text-zinc-500 mt-0.5" id="card6-sub">Verdict: 84% Barometric Sensitivity (>5 hPa drops)</p>
+            </div>
+            <i class="ph-bold ph-caret-right text-zinc-400 group-hover:text-zinc-800 transition"></i>
+          </button>
+        </div>
+
+        <!-- Bottom Quick Action inside Launcher -->
+        <div class="pt-3 mt-2 border-t border-rose-950/10 flex items-center justify-between text-xs text-zinc-700">
+          <span class="font-medium flex items-center gap-1">
+            <i class="ph-fill ph-check-circle text-emerald-600"></i>
+            Synced to <code class="font-mono text-[11px] bg-white/70 px-1.5 py-0.5 rounded">auramesh.cells</code>
+          </span>
+          <button onclick="openQuickLogModal()" class="font-bold text-roseblush-600 hover:underline flex items-center gap-1">
+            + Log Attack / Check-in
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN (7 cols): GOAL 1 — EARLY WARNING RADAR & PRODROME SHIELD -->
+      <div id="goal-module-1" class="lg:col-span-7 rounded-3xl bg-obsidian-900/95 border border-white/10 p-5 sm:p-7 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+        <!-- Module Header -->
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-wider bg-roseblush-500/20 text-roseblush-300 border border-roseblush-400/30">
+                Goal 01 • Advance Warning Radar
+              </span>
+              <span class="text-xs font-mono text-zinc-500">[auramesh.radar.0]</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-bold text-white mt-1.5 flex items-center gap-2">
+              <i class="ph-fill ph-bell-ringing text-roseblush-400"></i>
+              24-Hour Prodrome & Barometric Forecast
+            </h1>
+          </div>
+
+          <!-- Weather / Storm Simulator Switcher -->
+          <div class="flex items-center gap-2 bg-obsidian-950 p-1.5 rounded-2xl border border-white/10">
+            <button onclick="applyWeatherScenario('storm')" id="scenario-btn-storm" class="px-2.5 py-1.5 rounded-xl text-xs font-medium bg-roseblush-500 text-white shadow transition">
+              🌩️ Storm Front (-6.8 hPa)
+            </button>
+            <button onclick="applyWeatherScenario('chinook')" id="scenario-btn-chinook" class="px-2.5 py-1.5 rounded-xl text-xs font-medium text-zinc-400 hover:text-white transition">
+              💨 Rapid Drop (-11.2 hPa)
+            </button>
+            <button onclick="applyWeatherScenario('stable')" id="scenario-btn-stable" class="px-2.5 py-1.5 rounded-xl text-xs font-medium text-zinc-400 hover:text-white transition">
+              ☀️ Stable High (+1.2 hPa)
+            </button>
+          </div>
+        </div>
+
+        <!-- Center Radar Grid: Gauge + Contributing Risk Vectors -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 my-6 items-center">
+          <!-- Radial Risk Score Gauge (5 cols) -->
+          <div class="md:col-span-5 flex flex-col items-center justify-center p-4 rounded-2xl bg-obsidian-950/70 border border-white/5 relative">
+            <svg class="w-44 h-44 -rotate-90 transform" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="66" stroke="rgba(255,255,255,0.08)" stroke-width="14" fill="transparent" />
+              <circle id="risk-gauge-circle" cx="80" cy="80" r="66" stroke="url(#riskGrad)" stroke-width="14" stroke-dasharray="414.69" stroke-dashoffset="91.2" stroke-linecap="round" fill="transparent" class="transition-all duration-700 ease-out" />
+              <defs>
+                <linearGradient id="riskGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f7aab3" />
+                  <stop offset="50%" stop-color="#e64d64" />
+                  <stop offset="100%" stop-color="#f59e0b" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+              <span class="text-[11px] font-mono uppercase tracking-widest text-zinc-400">Next 12h Risk</span>
+              <span id="radar-risk-score" class="text-4xl font-extrabold text-white tracking-tight mt-0.5">78%</span>
+              <span id="radar-risk-label" class="mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-roseblush-500/20 text-roseblush-300 border border-roseblush-400/30">
+                HIGH ALERT WINDOW
+              </span>
+            </div>
+          </div>
+
+          <!-- Active Trigger Stacking Breakdown (7 cols) -->
+          <div class="md:col-span-7 space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Live Trigger Stacking Vectors</span>
+              <span id="lead-time-badge" class="text-xs font-mono text-roseblush-300 bg-roseblush-500/10 px-2 py-0.5 rounded-lg border border-roseblush-400/20">
+                ⏱️ Est. Onset Lead: 4.5 hrs
+              </span>
+            </div>
+
+            <!-- Bar 1: Barometric Velocity -->
+            <div class="p-3 rounded-xl bg-obsidian-950/60 border border-white/5">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="font-medium text-zinc-200 flex items-center gap-1.5">
+                  <i class="ph-fill ph-cloud-lightning text-roseblush-400"></i>
+                  Barometric Pressure Velocity
+                </span>
+                <span id="vector-baro-text" class="font-mono text-roseblush-300">-6.8 hPa / 6h (+42% risk)</span>
+              </div>
+              <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div id="vector-baro-bar" class="h-full bg-gradient-to-r from-roseblush-400 to-roseblush-600 rounded-full transition-all duration-500" style="width: 84%"></div>
+              </div>
+            </div>
+
+            <!-- Bar 2: Sleep & Circadian Trough -->
+            <div class="p-3 rounded-xl bg-obsidian-950/60 border border-white/5">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="font-medium text-zinc-200 flex items-center gap-1.5">
+                  <i class="ph-fill ph-moon-stars text-indigo-400"></i>
+                  Sleep Architecture & Debt
+                </span>
+                <span id="vector-sleep-text" class="font-mono text-indigo-300">5.8 hrs (-1.7h debt • +21% risk)</span>
+              </div>
+              <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div id="vector-sleep-bar" class="h-full bg-indigo-400 rounded-full transition-all duration-500" style="width: 62%"></div>
+              </div>
+            </div>
+
+            <!-- Bar 3: Prodrome / Autonomic Signals -->
+            <div class="p-3 rounded-xl bg-obsidian-950/60 border border-white/5">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="font-medium text-zinc-200 flex items-center gap-1.5">
+                  <i class="ph-fill ph-activity text-amber-400"></i>
+                  Prodrome Biomarkers (Neck Stiffness / Photophobia)
+                </span>
+                <span id="vector-prodrome-text" class="font-mono text-amber-300">2 Active Signals (+15% risk)</span>
+              </div>
+              <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div id="vector-prodrome-bar" class="h-full bg-amber-400 rounded-full transition-all duration-500" style="width: 50%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Prodrome Check & Action Bar -->
+        <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs text-zinc-400 mr-1">Tap Prodrome Signs:</span>
+            <button onclick="toggleProdromeSign('yawning')" id="prod-yawning" class="prodrome-pill px-2.5 py-1 rounded-lg text-xs border border-white/10 bg-obsidian-950 text-zinc-300 hover:border-roseblush-400 transition">
+              🥱 Repetitive Yawning
+            </button>
+            <button onclick="toggleProdromeSign('neck')" id="prod-neck" class="prodrome-pill px-2.5 py-1 rounded-lg text-xs border border-roseblush-400/50 bg-roseblush-500/20 text-roseblush-200 transition">
+              🦒 Neck Stiffness ✓
+            </button>
+            <button onclick="toggleProdromeSign('light')" id="prod-light" class="prodrome-pill px-2.5 py-1 rounded-lg text-xs border border-roseblush-400/50 bg-roseblush-500/20 text-roseblush-200 transition">
+              🔆 Light Glare ✓
+            </button>
+            <button onclick="toggleProdromeSign('fog')" id="prod-fog" class="prodrome-pill px-2.5 py-1 rounded-lg text-xs border border-white/10 bg-obsidian-950 text-zinc-300 hover:border-roseblush-400 transition">
+              🌫️ Word-Finding Fog
+            </button>
+          </div>
+
+          <button onclick="startGoldenWindowFromRadar()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-roseblush-400 to-roseblush-600 text-obsidian-950 font-bold text-xs sm:text-sm hover:opacity-95 transition shadow-lg shadow-roseblush-500/20 flex items-center gap-1.5">
+            <i class="ph-bold ph-timer"></i>
+            Activate 60m Golden Window
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         ROW 2: GOAL 6 (WEATHER SENSITIVITY LAB) & GOAL 2 (TRIGGER CORRELATION)
+         ===================================================================== -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- GOAL 6: "Just see if weather actually affects me" (7 cols) -->
+      <div id="goal-module-6" class="lg:col-span-7 rounded-3xl bg-obsidian-900/95 border border-white/10 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-white/10">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                  Goal 06 • Weather Sensitivity Lab
+                </span>
+                <span class="text-xs font-mono text-zinc-500">[auramesh.weather.0]</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-bold text-white mt-1 flex items-center gap-2">
+                <i class="ph-fill ph-cloud-rain text-sky-400"></i>
+                Does Weather Actually Affect You? Personal Barometric Proof
+              </h2>
+            </div>
+
+            <!-- Verdict Pill -->
+            <div class="px-3 py-1.5 rounded-2xl bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-semibold flex items-center gap-1.5">
+              <i class="ph-fill ph-seal-check text-base"></i>
+              <span id="weather-verdict-badge">84% Barometric Link Confirmed</span>
+            </div>
+          </div>
+
+          <!-- Personal Clinical Weather Verdict Banner -->
+          <div class="mt-4 p-4 rounded-2xl bg-gradient-to-r from-sky-950/60 via-obsidian-950 to-roseblush-950/50 border border-sky-400/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <p class="text-xs uppercase font-mono tracking-wider text-sky-300">SignalMesh Cross-Correlation Verdict (Last 14 Days)</p>
+              <p id="weather-verdict-detail" class="text-sm text-zinc-200 leading-relaxed">
+                <strong>4 of your last 5 migraines (80%)</strong> occurred within <strong>8 hours</strong> of a barometric pressure drop exceeding <strong>-5.0 hPa</strong>. Temperature alone shows weak correlation (r = 0.14), proving <strong>pressure velocity</strong> is your primary meteorological trigger.
+              </p>
+            </div>
+            <div class="shrink-0 text-right font-mono">
+              <div class="text-2xl font-extrabold text-roseblush-300" id="weather-r-value">r = -0.84</div>
+              <div class="text-[11px] text-zinc-400">Threshold: &lt; 1009 hPa</div>
+            </div>
+          </div>
+
+          <!-- Dual-Axis Interactive SVG Chart: Barometric Pressure (Line) vs. Migraine Severity (Bars) -->
+          <div class="mt-5">
+            <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
+              <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-3 h-0.5 bg-sky-400 inline-block"></span>
+                  Barometric Pressure (hPa)
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-sm bg-roseblush-500/80 inline-block"></span>
+                  Migraine Pain Severity (1–10)
+                </span>
+              </div>
+              <span class="font-mono text-[11px] text-zinc-500">Hover any day to inspect telemetry</span>
+            </div>
+
+            <div class="w-full bg-obsidian-950/90 rounded-2xl border border-white/5 p-3 relative">
+              <svg id="weather-correlation-svg" class="w-full h-56 overflow-visible" viewBox="0 0 680 210"></svg>
+              <div id="weather-chart-tooltip" class="hidden absolute top-3 right-3 px-3 py-2 rounded-xl bg-obsidian-900/95 border border-white/15 text-xs font-mono text-zinc-200 shadow-xl pointer-events-none"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Weather Controls -->
+        <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-400">
+          <span><strong class="text-zinc-200">Prophylactic Rule:</strong> Pre-hydrate with 500mg Magnesium + electrolytes when pressure drops &gt;4 hPa.</span>
+          <button onclick="simulateNewWeatherAttack()" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-sky-300 font-medium transition">
+            + Test Barometric Drop Simulation
+          </button>
+        </div>
+      </div>
+
+      <!-- GOAL 2: "Understand what's triggering my migraines" (5 cols) -->
+      <div id="goal-module-2" class="lg:col-span-5 rounded-3xl bg-obsidian-900/95 border border-white/10 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 pb-4 border-b border-white/10">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-wider bg-roseblush-500/20 text-roseblush-300 border border-roseblush-400/30">
+                  Goal 02 • Trigger Attribution
+                </span>
+                <span class="text-xs font-mono text-zinc-500">[auramesh.triggers]</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-bold text-white mt-1 flex items-center gap-2">
+                <i class="ph-bold ph-magnifying-glass text-roseblush-400"></i>
+                Personal Trigger Fingerprint
+              </h2>
+            </div>
+
+            <button onclick="openQuickLogModal()" class="px-3 py-1.5 rounded-xl bg-roseblush-500 hover:bg-roseblush-600 text-white text-xs font-semibold shadow transition flex items-center gap-1">
+              <i class="ph-bold ph-plus"></i>
+              Log Episode
+            </button>
+          </div>
+
+          <p class="text-xs text-zinc-400 mt-3">
+            Migraines rarely come from a single cause—they fire when <strong>2 or more triggers stack</strong> above your threshold. Click any trigger below to filter episodes or log a check-in:
+          </p>
+
+          <!-- Dynamic Ranked Trigger Correlation List -->
+          <div id="trigger-correlation-list" class="space-y-3 mt-4"></div>
+        </div>
+
+        <!-- Cranial Pain Localization Mini-Map & Insight -->
+        <div class="mt-5 pt-4 border-t border-white/10 grid grid-cols-12 gap-3 items-center bg-obsidian-950/60 p-3.5 rounded-2xl border border-white/5">
+          <div class="col-span-4 flex flex-col items-center">
+            <!-- Interactive Stylized Cranial Map -->
+            <svg viewBox="0 0 120 120" class="w-24 h-24">
+              <!-- Head Silhouette -->
+              <path d="M60 12 C32 12, 18 34, 20 62 C22 86, 36 106, 60 108 C84 106, 98 86, 100 62 C102 34, 88 12, 60 12 Z" fill="#18181f" stroke="#52525b" stroke-width="2"/>
+              <!-- Left Hemisphere (Unilateral Left) -->
+              <path id="zone-left" onclick="selectCranialZone('Left Frontal-Temporal')" class="cranial-zone active" d="M58 16 C36 18, 24 36, 25 58 C26 70, 42 72, 58 68 Z" fill="#f17a8a" fill-opacity="0.4" stroke="#f17a8a" stroke-width="1.5"/>
+              <!-- Right Hemisphere (Unilateral Right) -->
+              <path id="zone-right" onclick="selectCranialZone('Right Frontal-Temporal')" class="cranial-zone" d="M62 16 C84 18, 96 36, 95 58 C94 70, 78 72, 62 68 Z" fill="#3f3f46" fill-opacity="0.4" stroke="#71717a" stroke-width="1.5"/>
+              <!-- Ocular / Retro-Orbital -->
+              <ellipse id="zone-ocular" onclick="selectCranialZone('Retro-Orbital (Behind Eyes)')" class="cranial-zone" cx="43" cy="54" rx="11" ry="6" fill="#f59e0b" fill-opacity="0.45" stroke="#fbbf24" stroke-width="1.5"/>
+              <!-- Occipital / Base of Skull -->
+              <path id="zone-occipital" onclick="selectCranialZone('Occipital & Cervical Base')" class="cranial-zone" d="M32 82 Q60 72 88 82 Q78 102 60 104 Q42 102 32 82 Z" fill="#818cf8" fill-opacity="0.35" stroke="#818cf8" stroke-width="1.5"/>
+            </svg>
+            <span class="text-[10px] font-mono text-zinc-400 mt-1">Tap Zone to Inspect</span>
+          </div>
+          <div class="col-span-8 space-y-1">
+            <div class="text-xs font-mono text-roseblush-300 uppercase">Dominant Pain Zone</div>
+            <div id="cranial-zone-title" class="text-sm font-bold text-white">Left Frontal-Temporal (64% of attacks)</div>
+            <p id="cranial-zone-desc" class="text-xs text-zinc-400 leading-relaxed">
+              Strongly linked with trigeminal barometric sensitivity and screen glare. Responds 2.1x faster when triptan/gepant is taken before throbbing locks in.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =====================================================================
+         ROW 3: GOAL 3 (TEMPORAL & CIRCADIAN PATTERNS) & GOAL 5 (MEDICATION TIMING)
+         ===================================================================== -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- GOAL 3: "Finally find a pattern in when they happen" (6 cols) -->
+      <div id="goal-module-3" class="lg:col-span-6 rounded-3xl bg-obsidian-900/95 border border-white/10 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-white/10">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-400/30">
+                  Goal 03 • Pattern Discovery Engine
+                </span>
+                <span class="text-xs font-mono text-zinc-500">[auramesh.patterns]</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-bold text-white mt-1 flex items-center gap-2">
+                <i class="ph-bold ph-chart-line-up text-purple-400"></i>
+                When Do Your Migraines Actually Strike?
+              </h2>
+            </div>
+          </div>
+
+          <!-- Discovered Pattern Callout Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+            <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-400/25">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-mono uppercase text-purple-300">Pattern #1 • Weekly</span>
+                <span class="text-xs font-bold text-roseblush-300">38% of Attacks</span>
+              </div>
+              <p class="font-bold text-white text-sm mt-1">Saturday "Stress Let-Down"</p>
+              <p class="text-xs text-zinc-400 mt-0.5">Rapid Friday-to-Saturday cortisol drop + sleeping 90m later than weekday baseline.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-indigo-950/30 border border-indigo-400/25">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-mono uppercase text-indigo-300">Pattern #2 • Circadian</span>
+                <span class="text-xs font-bold text-amber-300">05:00 – 08:00 AM</span>
+              </div>
+              <p class="font-bold text-white text-sm mt-1">Early Morning Onset Peak</p>
+              <p class="text-xs text-zinc-400 mt-0.5">Waking up with a headache correlates with nocturnal dehydration & dawn pressure dip.</p>
+            </div>
+          </div>
+
+          <!-- Dual Pattern Charts: Day-of-Week Bars + 24h Circadian Distribution -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+            <!-- Day of Week Distribution -->
+            <div class="p-4 rounded-2xl bg-obsidian-950/80 border border-white/5">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-zinc-300">Day-of-Week Attack Frequency</span>
+                <span class="text-[10px] font-mono text-zinc-500">90-Day Window</span>
+              </div>
+              <div id="dow-bars-container" class="h-36 flex items-end justify-between gap-2 pt-4"></div>
+            </div>
+
+            <!-- Time of Day Circadian Onset Window -->
+            <div class="p-4 rounded-2xl bg-obsidian-950/80 border border-white/5">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-semibold text-zinc-300">Time-of-Day Onset Clusters</span>
+                <span class="text-[10px] font-mono text-zinc-500">24h Clock</span>
+              </div>
+              <div id="circadian-bars-container" class="space-y-2.5"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actionable Pattern Remedy Footer -->
+        <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-zinc-400">
+          <span><strong class="text-purple-300">Pattern Fix:</strong> Keep Saturday wake time within ±45 mins of weekday alarm + early morning caffeine micro-dose.</span>
+        </div>
+      </div>
+
+      <!-- GOAL 5: "Track medication timing better" (6 cols) -->
+      <div id="goal-module-5" class="lg:col-span-6 rounded-3xl bg-obsidian-900/95 border border-white/10 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-white/10">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-400/30">
+                  Goal 05 • Golden-Window & MOH Guard
+                </span>
+                <span class="text-xs font-mono text-zinc-500">[auramesh.meds]</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-bold text-white mt-1 flex items-center gap-2">
+                <i class="ph-fill ph-pill text-amber-400"></i>
+                Medication Timing & Rebound Safety
+              </h2>
+            </div>
+
+            <!-- MOH Safety Status Pill -->
+            <div id="moh-badge" class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-semibold">
+              MOH Safe: 3 / 10 Acute Days
+            </div>
+          </div>
+
+          <!-- 60-Minute Golden Window Live Timer Card -->
+          <div class="mt-4 p-4 rounded-2xl bg-gradient-to-r from-roseblush-950/90 via-obsidian-950 to-amber-950/40 border border-roseblush-400/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span class="text-xs font-mono uppercase tracking-wider text-amber-300">60-Minute Prodrome Golden Window</span>
+              </div>
+              <p class="text-xs text-zinc-300 leading-relaxed">
+                Dosing during early prodrome/mild pain yields <strong>84% 2-hour pain freedom</strong> vs. <strong>38%</strong> once central sensitization (allodynia) sets in.
+              </p>
+            </div>
+
+            <div class="flex items-center gap-3 shrink-0">
+              <div class="text-center px-3.5 py-2 rounded-xl bg-obsidian-950 border border-white/10">
+                <div id="golden-timer-display" class="font-mono text-2xl font-extrabold text-amber-300">47:18</div>
+                <div id="golden-timer-status" class="text-[10px] font-mono uppercase text-zinc-400">Optimal Window</div>
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <button onclick="toggleGoldenTimer()" id="golden-timer-btn" class="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-obsidian-950 font-bold text-xs transition">
+                  Pause / Reset
+                </button>
+                <button onclick="logQuickMedication('Sumatriptan 50mg', 'Acute Triptan', true)" class="px-3 py-1.5 rounded-xl bg-roseblush-500 hover:bg-roseblush-600 text-white font-semibold text-xs transition">
+                  Log Dose Now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick 1-Tap Medication Logger Buttons + MOH Progress Bar -->
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <button onclick="logQuickMedication('Rimegepant (Nurtec) 75mg', 'Acute CGRP Gepant', true)" class="p-3 rounded-xl bg-obsidian-950 hover:bg-zinc-900 border border-white/10 text-left transition group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white group-hover:text-roseblush-300">Nurtec ODT 75mg</span>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300">CGRP</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 mt-1">92% historical efficacy • Zero MOH risk</p>
+            </button>
+
+            <button onclick="logQuickMedication('Sumatriptan 50mg', 'Acute Triptan', true)" class="p-3 rounded-xl bg-obsidian-950 hover:bg-zinc-900 border border-white/10 text-left transition group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white group-hover:text-roseblush-300">Sumatriptan 50mg</span>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-roseblush-500/20 text-roseblush-300">Acute</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 mt-1">84% efficacy if &lt;45m • Counts toward MOH</p>
+            </button>
+
+            <button onclick="logQuickMedication('Magnesium Glycinate 400mg + B2', 'Preventive Cofactor', false)" class="p-3 rounded-xl bg-obsidian-950 hover:bg-zinc-900 border border-white/10 text-left transition group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white group-hover:text-emerald-300">Mg + Riboflavin B2</span>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Daily</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 mt-1">Neuro-stabilizer • Safe daily</p>
+            </button>
+          </div>
+
+          <!-- Medication Timing & Efficacy History Table -->
+          <div class="mt-4">
+            <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
+              <span>Recent Medication Timing vs. 2-Hour Relief</span>
+              <span class="font-mono text-[11px]">Early Dosing (&lt;60m) = 2.2x faster relief</span>
+            </div>
+            <div id="med-log-list" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =====================================================================
+         ROW 4: GOAL 4 — 7-DAY LOW-RISK WEEK PLANNER & AUTO-RESCHEDULER
+         ===================================================================== -->
+    <section id="goal-module-4" class="rounded-3xl bg-obsidian-900/95 border border-white/10 p-5 sm:p-7 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-white/10">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-mono uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+              Goal 04 • Low-Risk Week Planner
+            </span>
+            <span class="text-xs font-mono text-zinc-500">[auramesh.planner]</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2">
+            <i class="ph-fill ph-calendar-check text-emerald-400"></i>
+            7-Day Barometric Forecast & Cognitive Load Planner
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-0.5">
+            Schedule deep work, presentations, and social events on <strong>Low-Risk High-Pressure Days</strong>. Protect high-risk storm days for low-glare recovery.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button onclick="smartAutoRescheduleWeek()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-obsidian-950 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/15 hover:opacity-95 transition flex items-center gap-2">
+            <i class="ph-bold ph-magic-wand text-base"></i>
+            Smart Reschedule High-Risk Tasks
+          </button>
+          <button onclick="openAddTaskModal()" class="px-3.5 py-2.5 rounded-xl bg-obsidian-950 hover:bg-zinc-800 text-zinc-200 border border-white/10 text-xs sm:text-sm font-medium transition flex items-center gap-1.5">
+            <i class="ph-bold ph-plus"></i>
+            Add Commitment
+          </button>
+        </div>
+      </div>
+
+      <!-- 7-Day Forecast & Task Columns -->
+      <div id="week-planner-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3 mt-5"></div>
+    </section>
+
+    <!-- =====================================================================
+         ROW 5: RECENT EPISODE LOGS & SIGNALMESH THOUGHT-LOG CONSOLE
+         ===================================================================== -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- Historical Episode & Trigger Stacking Table (7 cols) -->
+      <div class="lg:col-span-7 rounded-3xl bg-obsidian-900/95 border border-white/10 p-5 sm:p-6 shadow-xl">
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <i class="ph-duotone ph-notebook text-roseblush-400 text-xl"></i>
+              Logged Migraine Episodes & Trigger Co-Location
+            </h3>
+            <p class="text-xs text-zinc-400">Every entry is indexed as an immutable coordinate cell in <code class="font-mono text-roseblush-300">auramesh.episodes.*</code></p>
+          </div>
+          <button onclick="openQuickLogModal()" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-roseblush-300 text-xs font-semibold border border-roseblush-400/20 transition">
+            + New Entry
+          </button>
+        </div>
+
+        <div id="episodes-table-container" class="mt-4 space-y-2.5 max-h-80 overflow-y-auto pr-1"></div>
+      </div>
+
+      <!-- Live SignalMesh Thought-Log & FTS5 Query Console (5 cols) -->
+      <div class="lg:col-span-5 rounded-3xl bg-obsidian-900/95 border border-roseblush-400/25 p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-white/10">
+            <div class="flex items-center gap-2">
+              <i class="ph-fill ph-terminal-window text-roseblush-400 text-xl"></i>
+              <div>
+                <h3 class="text-base font-bold text-white">SignalMesh Gridstack Engine</h3>
+                <p class="text-[11px] font-mono text-zinc-400">Coordinate-Addressable State • FTS5 Search</p>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-400/30">
+              SYNCED 0.2ms
+            </span>
+          </div>
+
+          <!-- Instant FTS Query Bar (`q` / `tune` / `think`) -->
+          <div class="mt-3 flex gap-2">
+            <div class="relative flex-1">
+              <i class="ph-bold ph-magnifying-glass absolute left-3 top-2.5 text-zinc-500 text-sm"></i>
+              <input id="mesh-fts-input" type="text" oninput="runMeshQuery(this.value)" placeholder="Query mesh: e.g. 'barometric', 'triptan', 'saturday'..." class="w-full pl-8 pr-3 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs font-mono text-white placeholder-zinc-500 focus:outline-none focus:border-roseblush-400" />
+            </div>
+            <button onclick="runMeshThinkPrompt()" class="px-3 py-2 rounded-xl bg-roseblush-500/20 hover:bg-roseblush-500/30 text-roseblush-300 border border-roseblush-400/30 text-xs font-mono font-semibold transition">
+              think()
+            </button>
+          </div>
+
+          <!-- Live Coordinate Cell Output Stream -->
+          <div id="mesh-console-stream" class="mt-3 p-3 rounded-2xl bg-obsidian-950 border border-white/5 font-mono text-[11px] space-y-2 h-56 overflow-y-auto"></div>
+        </div>
+
+        <div class="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+          <span id="mesh-stats-footer">container: auramesh • 6 grids active</span>
+          <button onclick="resetDemoData()" class="text-zinc-400 hover:text-roseblush-300 underline">Reset Demo State</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       MODAL 1: LOG NEW MIGRAINE EPISODE / TRIGGER CHECK-IN
+       ===================================================================== -->
+  <div id="quick-log-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div class="bg-obsidian-900 border border-white/15 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <span class="text-[11px] font-mono uppercase text-roseblush-300">Coordinate Write → auramesh.episodes.*</span>
+          <h3 class="text-lg font-bold text-white">Log Migraine Episode or Prodrome Check-In</h3>
+        </div>
+        <button onclick="closeQuickLogModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+
+      <!-- Pain Severity Slider -->
+      <div>
+        <div class="flex justify-between text-xs mb-1.5">
+          <label class="font-semibold text-zinc-300">Pain Severity (1 = Prodrome Only, 10 = Severe)</label>
+          <span id="modal-severity-val" class="font-mono font-bold text-roseblush-400 text-sm">6 / 10</span>
+        </div>
+        <input id="modal-severity-input" type="range" min="1" max="10" value="6" oninput="document.getElementById('modal-severity-val').textContent = this.value + ' / 10'" class="w-full accent-roseblush-500 cursor-pointer" />
+      </div>
+
+      <!-- Onset Time & Cranial Location -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 mb-1">Onset Window</label>
+          <select id="modal-onset-window" class="w-full px-3 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white">
+            <option value="04:00 - 08:00 AM">04:00 - 08:00 AM (Dawn Trough)</option>
+            <option value="08:00 - 12:00 PM">08:00 - 12:00 PM (Morning)</option>
+            <option value="12:00 - 05:00 PM" selected>12:00 - 05:00 PM (Afternoon)</option>
+            <option value="05:00 - 10:00 PM">05:00 - 10:00 PM (Evening)</option>
+            <option value="10:00 PM - 04:00 AM">10:00 PM - 04:00 AM (Nocturnal)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 mb-1">Cranial Pain Region</label>
+          <select id="modal-pain-zone" class="w-full px-3 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white">
+            <option value="Left Frontal-Temporal">Left Frontal-Temporal</option>
+            <option value="Retro-Orbital (Behind Eyes)">Retro-Orbital (Behind Eyes)</option>
+            <option value="Right Frontal-Temporal">Right Frontal-Temporal</option>
+            <option value="Occipital & Neck Base">Occipital & Neck Base</option>
+            <option value="Bilateral / Diffuse">Bilateral / Diffuse</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Suspected Triggers Multi-Select Pills -->
+      <div>
+        <label class="block text-xs font-semibold text-zinc-300 mb-2">Select Active Triggers (Recalculates Attribution Model):</label>
+        <div id="modal-trigger-pills" class="flex flex-wrap gap-2">
+          <button type="button" onclick="toggleModalTrigger(this)" data-trig="Barometric Drop" class="modal-trig-btn active px-3 py-1.5 rounded-xl text-xs font-medium bg-roseblush-500/25 border border-roseblush-400 text-roseblush-200">🌧️ Barometric Drop</button>
+          <button type="button" onclick="toggleModalTrigger(this)" data-trig="Sleep Debt / Irregularity" class="modal-trig-btn active px-3 py-1.5 rounded-xl text-xs font-medium bg-roseblush-500/25 border border-roseblush-400 text-roseblush-200">😴 Sleep Debt / Irregularity</button>
+          <button type="button" onclick="toggleModalTrigger(this)" data-trig="Stress Let-Down" class="modal-trig-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-obsidian-950 border border-white/10 text-zinc-400">📉 Stress Let-Down</button>
+          <button type="button" onclick="toggleModalTrigger(this)" data-trig="Screen Glare / Strain" class="modal-trig-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-obsidian-950 border border-white/10 text-zinc-400">💻 Screen Glare / Strain</button>
+          <button type="button" onclick="toggleModalTrigger(this)" data-trig="Dehydration / Skipped Meal" class="modal-trig-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-obsidian-950 border border-white/10 text-zinc-400">💧 Dehydration / Skipped Meal</button>
+          <button type="button" onclick="toggleModalTrigger(this)" data-trig="Caffeine Shift" class="modal-trig-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-obsidian-950 border border-white/10 text-zinc-400">☕ Caffeine Shift</button>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <label class="block text-xs font-semibold text-zinc-300 mb-1">Episode Notes / Aura Observations</label>
+        <input id="modal-episode-notes" type="text" placeholder="e.g., Visual shimmering 20m prior, neck tightness..." class="w-full px-3 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white" />
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeQuickLogModal()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-zinc-300">Cancel</button>
+        <button onclick="submitNewEpisode()" class="px-5 py-2 rounded-xl bg-roseblush-500 hover:bg-roseblush-600 text-white font-bold text-xs shadow-lg shadow-roseblush-500/25">
+          Save Episode & Re-Index Mesh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 2: ADD WEEKLY TASK / COMMITMENT
+       ===================================================================== -->
+  <div id="add-task-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div class="bg-obsidian-900 border border-white/15 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="text-base font-bold text-white">Add Weekly Commitment</h3>
+        <button onclick="closeAddTaskModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-zinc-400">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-zinc-300 mb-1">Task / Event Title</label>
+        <input id="task-title-input" type="text" placeholder="e.g., Q4 Board Deck Review, Dinner with Friends..." class="w-full px-3 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white" />
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 mb-1">Day of Week</label>
+          <select id="task-day-input" class="w-full px-3 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white">
+            <option value="0">Sun (Low Risk)</option>
+            <option value="1">Mon (High Risk Storm)</option>
+            <option value="2">Tue (High Risk Front)</option>
+            <option value="3">Wed (Low Risk)</option>
+            <option value="4">Thu (Low Risk)</option>
+            <option value="5">Fri (Moderate Risk)</option>
+            <option value="6">Sat (Moderate Let-down)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 mb-1">Sensory / Cognitive Strain</label>
+          <select id="task-strain-input" class="w-full px-3 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white">
+            <option value="high">High Strain (Deep Work / Bright Lights)</option>
+            <option value="low">Low Strain (Flexible / Quiet)</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeAddTaskModal()" class="px-4 py-2 rounded-xl bg-white/5 text-xs text-zinc-300">Cancel</button>
+        <button onclick="submitNewTask()" class="px-4 py-2 rounded-xl bg-emerald-500 text-obsidian-950 font-bold text-xs">Add to Planner</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 3: FULLSCREEN SCREENSHOT GOAL LAUNCHER OVERLAY
+       ===================================================================== -->
+  <div id="launcher-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="max-w-md w-full rounded-3xl bg-[#FDE8E9] p-5 text-zinc-900 shadow-2xl border border-rose-300 space-y-3">
+      <div class="flex items-center justify-between pb-2 border-b border-rose-950/10">
+        <div class="flex items-center gap-2">
+          <i class="ph-fill ph-Compass text-roseblush-600 text-xl"></i>
+          <span class="font-bold text-base text-zinc-900">Quick Focus Goal Launcher</span>
+        </div>
+        <button onclick="toggleLauncherModal()" class="w-8 h-8 rounded-full bg-black/10 hover:bg-black/20 flex items-center justify-center text-zinc-800">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+      <p class="text-xs text-zinc-600">Select any of the 6 core migraine goals to jump directly to its live workspace:</p>
+      <div class="space-y-2.5" id="modal-launcher-cards"></div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       SLIDE-OVER DRAWER: SIGNALMESH COORDINATE INSPECTOR
+       ===================================================================== -->
+  <div id="mesh-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-xl bg-obsidian-900 border-l border-white/15 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-5 border-b border-white/10 flex items-center justify-between">
+      <div>
+        <span class="text-[11px] font-mono uppercase text-roseblush-400">SignalMesh Local State Gridstack</span>
+        <h3 class="text-lg font-bold text-white">Coordinate-Addressable Cells & Changelog</h3>
+      </div>
+      <button onclick="toggleMeshDrawer()" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white">
+        <i class="ph-bold ph-x"></i>
+      </button>
+    </div>
+
+    <div class="p-4 border-b border-white/10 flex flex-wrap gap-1.5" id="mesh-drawer-grid-tabs"></div>
+
+    <div id="mesh-drawer-cells" class="flex-1 p-4 overflow-y-auto space-y-2 font-mono text-xs"></div>
+
+    <div class="p-4 border-t border-white/10 bg-obsidian-950 text-[11px] font-mono text-zinc-400 flex items-center justify-between">
+      <span>Container: <strong class="text-white">auramesh</strong></span>
+      <span>Zero Egress • LocalStorage Backed</span>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION BANNER -->
+  <div id="toast-banner" class="fixed bottom-5 right-5 z-50 hidden items-center gap-3 px-4 py-3 rounded-2xl bg-obsidian-900/95 border border-roseblush-400/40 text-white shadow-2xl max-w-sm">
+    <i class="ph-fill ph-sparkle text-roseblush-400 text-lg shrink-0"></i>
+    <div class="text-xs">
+      <div id="toast-title" class="font-bold text-white">SignalMesh Updated</div>
+      <div id="toast-msg" class="text-zinc-300 mt-0.5">Coordinate cell written.</div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       APPLICATION ENGINE & SIGNALMESH GRIDSTACK IMPLEMENTATION
+       ===================================================================== -->
+  <script>
+    /**
+     * SignalMesh Gridstack In-Browser Engine
+     * Implements coordinate-addressable cells (`auramesh.<grid>.<row>`),
+     * FTS search (`q`), fuzzy/semantic tune (`tune`), and thought-logging (`think`).
+     */
+    class SignalMeshEngine {
+      constructor(container = 'auramesh') {
+        this.container = container;
+        this.cells = new Map();
+        this.changelog = [];
+      }
+      putCell(grid, row, name, kind, value) {
+        const coord = `${this.container}.${grid}.${row}`;
+        const cell = {
+          coord,
+          grid,
+          row,
+          name,
+          kind,
+          value: typeof value === 'string' ? value : JSON.stringify(value),
+          mtime: Date.now()
+        };
+        const isUpdate = this.cells.has(coord);
+        this.cells.set(coord, cell);
+        this.changelog.unshift({
+          coord,
+          ts: Date.now(),
+          change: isUpdate ? 'modified' : 'created',
+          detail: `${name}: ${cell.value.slice(0, 90)}`
+        });
+        return coord;
+      }
+      logTurn(role, text) {
+        const thoughtCells = Array.from(this.cells.values()).filter(c => c.grid === 'thoughts');
+        const nextRow = thoughtCells.length;
+        return this.putCell('thoughts', nextRow, role, role, text);
+      }
+      q(query, limit = 12) {
+        if (!query || !query.trim()) {
+          return Array.from(this.cells.values()).slice(-limit).reverse();
+        }
+        const terms = query.toLowerCase().split(/\W+/).filter(Boolean);
+        const scored = [];
+        for (const cell of this.cells.values()) {
+          const hay = `${cell.coord} ${cell.grid} ${cell.name} ${cell.kind} ${cell.value}`.toLowerCase();
+          let hits = 0;
+          for (const t of terms) {
+            if (hay.includes(t)) hits++;
+          }
+          if (hits > 0) scored.push({ cell, hits });
+        }
+        scored.sort((a, b) => b.hits - a.hits || b.cell.mtime - a.cell.mtime);
+        return scored.slice(0, limit).map(s => s.cell);
+      }
+      stats() {
+        const grids = {};
+        for (const c of this.cells.values()) {
+          grids[c.grid] = (grids[c.grid] || 0) + 1;
+        }
+        return { container: this.container, total_cells: this.cells.size, grids };
+      }
+    }
+    const mesh = new SignalMeshEngine('auramesh');
+    // Default Rich Clinical Dataset
+    const DEFAULT_STATE = {
+      weatherScenario: 'storm',
+      pressureHpa: 1006.4,
+      pressureDelta6h: -6.8,
+      sleepHours: 5.8,
+      activeProdromes: ['neck', 'light'],
+      goldenTimerSeconds: 47 * 60 + 18,
+      goldenTimerRunning: true,
+      activeMeshDrawerGrid: 'all',
+      // 14-day Barometric Pressure & Migraine Severity Time Series
+      weatherSeries: [
+        { day: 'Oct 25', hpa: 1021, severity: 0, note: 'Stable high' },
+        { day: 'Oct 26', hpa: 1019, severity: 0, note: 'Clear' },
+        { day: 'Oct 27', hpa: 1011, severity: 7, note: '-8 hPa storm front • Left temple attack' },
+        { day: 'Oct 28', hpa: 1013, severity: 3, note: 'Postdrome recovery' },
+        { day: 'Oct 29', hpa: 1022, severity: 0, note: 'High pressure ridge' },
+        { day: 'Oct 30', hpa: 1024, severity: 0, note: 'Optimal clarity' },
+        { day: 'Oct 31', hpa: 1018, severity: 0, note: 'Mild dip' },
+        { day: 'Nov 01', hpa: 1009, severity: 8, note: '-9 hPa drop + Saturday Stress Let-down' },
+        { day: 'Nov 02', hpa: 1014, severity: 0, note: 'Recovery' },
+        { day: 'Nov 03', hpa: 1020, severity: 0, note: 'Stable' },
+        { day: 'Nov 04', hpa: 1008, severity: 6, note: '-12 hPa cold front • Ocular migraine' },
+        { day: 'Nov 05', hpa: 1016, severity: 0, note: 'Clearing' },
+        { day: 'Nov 06', hpa: 1013, severity: 2, note: 'Mild prodrome neck stiffness' },
+        { day: 'Today',  hpa: 1006, severity: 5, note: '-6.8 hPa active drop • Prodrome alert' }
+      ],
+      // Trigger Correlation Data
+      triggers: [
+        { name: 'Barometric Drop (>5 hPa)', icon: 'ph-cloud-lightning', pct: 84, lift: '3.4x risk lift', color: 'from-roseblush-400 to-roseblush-600', count: 11 },
+        { name: 'Sleep Debt / Irregular Wake', icon: 'ph-moon-stars', pct: 68, lift: '2.6x risk lift', color: 'from-indigo-400 to-indigo-600', count: 9 },
+        { name: 'Weekend Stress Let-Down', icon: 'ph-trend-down', pct: 54, lift: '2.1x risk lift', color: 'from-purple-400 to-purple-600', count: 7 },
+        { name: 'Screen Glare / PWM Strain', icon: 'ph-monitor', pct: 46, lift: '1.8x risk lift', color: 'from-amber-400 to-amber-600', count: 6 },
+        { name: 'Dehydration / Skipped Meal', icon: 'ph-drop-half-bottom', pct: 38, lift: '1.5x risk lift', color: 'from-sky-400 to-sky-600', count: 5 },
+        { name: 'Delayed Morning Caffeine', icon: 'ph-coffee', pct: 29, lift: '1.3x risk lift', color: 'from-emerald-400 to-emerald-600', count: 4 }
+      ],
+      // Day of Week Attack Frequency (Sun - Sat)
+      dowStats: [
+        { day: 'Sun', count: 2, pct: 28 },
+        { day: 'Mon', count: 5, pct: 71, highlight: 'Workweek Surge' },
+        { day: 'Tue', count: 3, pct: 42 },
+        { day: 'Wed', count: 2, pct: 28 },
+        { day: 'Thu', count: 2, pct: 28 },
+        { day: 'Fri', count: 3, pct: 42 },
+        { day: 'Sat', count: 7, pct: 100, highlight: 'Let-Down Peak' }
+      ],
+      // Circadian 24h Onset Windows
+      circadianStats: [
+        { window: '04:00 – 08:00 AM (Dawn Trough)', pct: 44, color: 'bg-roseblush-500' },
+        { window: '12:00 – 04:00 PM (Afternoon Glare)', pct: 28, color: 'bg-amber-400' },
+        { window: '08:00 – 12:00 PM (Morning)', pct: 16, color: 'bg-indigo-400' },
+        { window: '04:00 – 10:00 PM (Evening)', pct: 12, color: 'bg-sky-400' }
+      ],
+      // Medication Logs
+      medLogs: [
+        { id: 1, med: 'Rimegepant (Nurtec) 75mg', kind: 'Acute CGRP Gepant', delayMins: 22, relief: '95% Relief in 75m', date: 'Nov 04, 06:40 AM', isAcuteMOH: false },
+        { id: 2, med: 'Sumatriptan 50mg', kind: 'Acute Triptan', delayMins: 35, relief: '85% Relief in 90m', date: 'Nov 01, 07:15 AM', isAcuteMOH: true },
+        { id: 3, med: 'Sumatriptan 50mg', kind: 'Acute Triptan', delayMins: 140, relief: '40% Partial (Late Dose)', date: 'Oct 27, 02:30 PM', isAcuteMOH: true },
+        { id: 4, med: 'Eletriptan 40mg', kind: 'Acute Triptan', delayMins: 40, relief: '90% Relief in 60m', date: 'Oct 19, 08:10 AM', isAcuteMOH: true }
+      ],
+      // 7-Day Low-Risk Planner
+      weekPlan: [
+        { dayIdx: 0, name: 'Sun', date: 'Nov 8', risk: 'LOW', riskPct: 22, hpa: '1021 hPa', tasks: [
+          { id: 101, title: 'Meal Prep & Hydration Load', strain: 'low' }
+        ]},
+        { dayIdx: 1, name: 'Mon', date: 'Nov 9', risk: 'HIGH', riskPct: 82, hpa: '1005 hPa (-8)', tasks: [
+          { id: 102, title: '3-Hour Executive Strategy Pitch', strain: 'high' },
+          { id: 103, title: 'Fluorescent Studio Photo Shoot', strain: 'high' }
+        ]},
+        { dayIdx: 2, name: 'Tue', date: 'Nov 10', risk: 'MODERATE', riskPct: 54, hpa: '1011 hPa', tasks: [
+          { id: 104, title: 'Async Code Review & Audio Calls', strain: 'low' }
+        ]},
+        { dayIdx: 3, name: 'Wed', date: 'Nov 11', risk: 'LOW', riskPct: 18, hpa: '1023 hPa', tasks: [
+          { id: 105, title: 'Deep Architecture Design Sprint', strain: 'high' }
+        ]},
+        { dayIdx: 4, name: 'Thu', date: 'Nov 12', risk: 'LOW', riskPct: 15, hpa: '1025 hPa', tasks: [
+          { id: 106, title: 'Client Keynote Recording', strain: 'high' }
+        ]},
+        { dayIdx: 5, name: 'Fri', date: 'Nov 13', risk: 'LOW', riskPct: 26, hpa: '1020 hPa', tasks: [
+          { id: 107, title: 'Weekly Wrap & Gentle Mobility', strain: 'low' }
+        ]},
+        { dayIdx: 6, name: 'Sat', date: 'Nov 14', risk: 'MODERATE', riskPct: 48, hpa: '1014 hPa', tasks: [
+          { id: 108, title: 'Keep 7:30 AM Anchor Wake Time', strain: 'low' }
+        ]}
+      ],
+      // Historical Episodes
+      episodes: [
+        { id: 1, date: 'Nov 04 • 06:15 AM', severity: 6, zone: 'Retro-Orbital (Behind Eyes)', triggers: ['Barometric Drop', 'Sleep Debt / Irregularity'], notes: '-12 hPa cold front; Nurtec at +22m aborted full attack.' },
+        { id: 2, date: 'Nov 01 • 06:40 AM', severity: 8, zone: 'Left Frontal-Temporal', triggers: ['Barometric Drop', 'Stress Let-Down', 'Caffeine Shift'], notes: 'Slept in 2h on Saturday morning + storm system.' },
+        { id: 3, date: 'Oct 27 • 12:15 PM', severity: 7, zone: 'Left Frontal-Temporal', triggers: ['Barometric Drop', 'Screen Glare / Strain'], notes: 'Waited 2h to dose Sumatriptan; slow relief.' },
+        { id: 4, date: 'Oct 19 • 07:30 AM', severity: 5, zone: 'Occipital & Neck Base', triggers: ['Sleep Debt / Irregularity', 'Dehydration / Skipped Meal'], notes: 'Neck stiffness prodrome 3h before headache.' }
+      ]
+    };
+    let appState = loadAppState();
+    function loadAppState() {
+      try {
+        const saved = localStorage.getItem('auramesh_state_v1');
+        if (saved) return JSON.parse(saved);
+      } catch (e) {
+        console.warn('LocalStorage unavailable, using default state.');
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    }
+    function saveAppState() {
+      try {
+        localStorage.setItem('auramesh_state_v1', JSON.stringify(appState));
+      } catch (e) {}
+      syncStateToSignalMesh();
+    }
+    function resetDemoData() {
+      appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+      saveAppState();
+      renderAll();
+      showToast('Demo State Restored', 'All 6 goals & SignalMesh coordinates reset to baseline.');
+    }
+    /**
+     * Chart all application entities into SignalMesh coordinate cells
+     */
+    function syncStateToSignalMesh() {
+      mesh.putCell('radar', 0, 'barometric_risk_radar', 'telemetry', {
+        scenario: appState.weatherScenario,
+        pressureHpa: appState.pressureHpa,
+        delta6h: appState.pressureDelta6h,
+        activeProdromes: appState.activeProdromes
+      });
+      appState.triggers.forEach((t, idx) => {
+        mesh.putCell('triggers', idx, t.name, 'correlation', `${t.pct}% correlation (${t.lift}) across ${t.count} episodes`);
+      });
+      appState.episodes.forEach((ep, idx) => {
+        mesh.putCell('episodes', idx, ep.date, 'episode', `Severity ${ep.severity}/10 | ${ep.zone} | Triggers: ${ep.triggers.join(', ')} | ${ep.notes}`);
+      });
+      appState.medLogs.forEach((m, idx) => {
+        mesh.putCell('meds', idx, m.med, m.kind, `Dosed at +${m.delayMins}m | ${m.relief} | ${m.date}`);
+      });
+      appState.weekPlan.forEach((d, idx) => {
+        mesh.putCell('planner', idx, `${d.name} ${d.date}`, `risk_${d.risk}`, `${d.risk} (${d.riskPct}%) | ${d.hpa} | Tasks: ${d.tasks.map(t => t.title).join('; ')}`);
+      });
+      mesh.putCell('weather', 0, 'barometric_sensitivity_verdict', 'verdict', '84% Barometric Sensitivity confirmed (r = -0.84, threshold <1009 hPa)');
+      const stats = mesh.stats();
+      const badge = document.getElementById('mesh-cell-count');
+      if (badge) badge.textContent = stats.total_cells;
+      const footer = document.getElementById('mesh-stats-footer');
+      if (footer) footer.textContent = `container: ${stats.container} • ${stats.total_cells} cells indexed`;
+    }
+    // =========================================================================
+    // GOAL 1: EARLY WARNING RADAR & PRODROME ENGINE
+    // =========================================================================
+    function computeCurrentRiskScore() {
+      let base = 18;
+      // Barometric drop impact
+      if (appState.pressureDelta6h <= -10) base += 52;
+      else if (appState.pressureDelta6h <= -5) base += 40;
+      else if (appState.pressureDelta6h < -2) base += 18;
+      // Sleep debt impact
+      if (appState.sleepHours < 6.5) base += 16;
+      // Prodrome signs
+      base += appState.activeProdromes.length * 9;
+      return Math.min(98, Math.max(8, Math.round(base)));
+    }
+    function renderRadarModule() {
+      const risk = computeCurrentRiskScore();
+      const circumference = 414.69;
+      const offset = circumference - (risk / 100) * circumference;
+      const circle = document.getElementById('risk-gauge-circle');
+      if (circle) circle.style.strokeDashoffset = offset;
+      document.getElementById('radar-risk-score').textContent = `${risk}%`;
+      const labelEl = document.getElementById('radar-risk-label');
+      const navBadge = document.getElementById('nav-risk-badge');
+      if (risk >= 70) {
+        labelEl.textContent = 'HIGH ALERT WINDOW';
+        labelEl.className = 'mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-roseblush-500/20 text-roseblush-300 border border-roseblush-400/30';
+        navBadge.textContent = `${risk}% HIGH`;
+        navBadge.className = 'font-mono font-semibold text-roseblush-300';
+      } else if (risk >= 40) {
+        labelEl.textContent = 'MODERATE WATCH';
+        labelEl.className = 'mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-400/30';
+        navBadge.textContent = `${risk}% MODERATE`;
+        navBadge.className = 'font-mono font-semibold text-amber-300';
+      } else {
+        labelEl.textContent = 'LOW RISK CLEAR';
+        labelEl.className = 'mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30';
+        navBadge.textContent = `${risk}% LOW`;
+        navBadge.className = 'font-mono font-semibold text-emerald-300';
+      }
+      // Update Nav Barometer
+      document.getElementById('nav-pressure-val').textContent = `${appState.pressureHpa.toFixed(1)} hPa`;
+      const sign = appState.pressureDelta6h > 0 ? '+' : '';
+      document.getElementById('nav-pressure-delta').textContent = `(${sign}${appState.pressureDelta6h.toFixed(1)} hPa / 6h)`;
+      document.getElementById('card1-sub').textContent = `Alert: ${sign}${appState.pressureDelta6h.toFixed(1)} hPa change • ${risk}% risk window`;
+      // Update Vector Bars
+      const baroPct = Math.min(100, Math.max(12, Math.abs(appState.pressureDelta6h) * 11));
+      document.getElementById('vector-baro-bar').style.width = `${baroPct}%`;
+      document.getElementById('vector-baro-text').textContent = `${sign}${appState.pressureDelta6h.toFixed(1)} hPa / 6h`;
+      const prodPct = Math.min(100, appState.activeProdromes.length * 25);
+      document.getElementById('vector-prodrome-bar').style.width = `${prodPct}%`;
+      document.getElementById('vector-prodrome-text').textContent = `${appState.activeProdromes.length} Active Signal(s) (+${appState.activeProdromes.length * 9}% risk)`;
+      // Highlight Prodrome Pills
+      ['yawning', 'neck', 'light', 'fog'].forEach(key => {
+        const btn = document.getElementById(`prod-${key}`);
+        if (!btn) return;
+        const active = appState.activeProdromes.includes(key);
+        const labels = {
+          yawning: '🥱 Repetitive Yawning',
+          neck: '🦒 Neck Stiffness',
+          light: '🔆 Light Glare',
+          fog: '🌫️ Word-Finding Fog'
+        };
+        btn.textContent = active ? `${labels[key]} ✓` : labels[key];
+        btn.className = active
+          ? 'prodrome-pill px-2.5 py-1 rounded-lg text-xs border border-roseblush-400/50 bg-roseblush-500/20 text-roseblush-200 transition'
+          : 'prodrome-pill px-2.5 py-1 rounded-lg text-xs border border-white/10 bg-obsidian-950 text-zinc-300 hover:border-roseblush-400 transition';
+      });
+    }
+    function applyWeatherScenario(scenario) {
+      appState.weatherScenario = scenario;
+      if (scenario === 'storm') {
+        appState.pressureHpa = 1006.4;
+        appState.pressureDelta6h = -6.8;
+      } else if (scenario === 'chinook') {
+        appState.pressureHpa = 998.2;
+        appState.pressureDelta6h = -11.2;
+      } else {
+        appState.pressureHpa = 1024.0;
+        appState.pressureDelta6h = +1.2;
+      }
+      ['storm', 'chinook', 'stable'].forEach(s => {
+        const b = document.getElementById(`scenario-btn-${s}`);
+        if (!b) return;
+        b.className = s === scenario
+          ? 'px-2.5 py-1.5 rounded-xl text-xs font-medium bg-roseblush-500 text-white shadow transition'
+          : 'px-2.5 py-1.5 rounded-xl text-xs font-medium text-zinc-400 hover:text-white transition';
+      });
+      // Update Today's point on the Weather Correlation Chart
+      const lastPt = appState.weatherSeries[appState.weatherSeries.length - 1];
+      lastPt.hpa = Math.round(appState.pressureHpa);
+      lastPt.severity = scenario === 'stable' ? 1 : (scenario === 'chinook' ? 8 : 5);
+      mesh.logTurn('thought', `Weather scenario switched to ${scenario} (${appState.pressureHpa} hPa, delta ${appState.pressureDelta6h} hPa/6h)`);
+      saveAppState();
+      renderAll();
+      showToast('Barometric Telemetry Updated', `Switched to ${scenario.toUpperCase()} front (${appState.pressureHpa} hPa).`);
+    }
+    function toggleProdromeSign(sign) {
+      const idx = appState.activeProdromes.indexOf(sign);
+      if (idx >= 0) appState.activeProdromes.splice(idx, 1);
+      else appState.activeProdromes.push(sign);
+      mesh.logTurn('thought', `Toggled prodrome biomarker '${sign}' -> active=${appState.activeProdromes.join(',')}`);
+      saveAppState();
+      renderRadarModule();
+      renderMeshConsole();
+    }
+    // =========================================================================
+    // GOAL 6: WEATHER SENSITIVITY DUAL-AXIS SVG CHART
+    // =========================================================================
+    function renderWeatherCorrelationChart() {
+      const svg = document.getElementById('weather-correlation-svg');
+      if (!svg) return;
+      const data = appState.weatherSeries;
+      const W = 680, H = 210, padL = 38, padR = 32, padT = 18, padB = 34;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+      const minHpa = 995, maxHpa = 1028;
+      const stepX = plotW / (data.length - 1);
+      let html = '';
+      // Horizontal Grid Lines & Left Axis (hPa)
+      [1000, 1010, 1020].forEach(val => {
+        const y = padT + plotH - ((val - minHpa) / (maxHpa - minHpa)) * plotH;
+        html += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3" />`;
+        html += `<text x="${padL - 6}" y="${y + 4}" text-anchor="end" fill="#71717a" font-size="10" font-family="JetBrains Mono">${val}</text>`;
+      });
+      // Threshold Line at 1009 hPa
+      const threshY = padT + plotH - ((1009 - minHpa) / (maxHpa - minHpa)) * plotH;
+      html += `<line x1="${padL}" y1="${threshY}" x2="${W - padR}" y2="${threshY}" stroke="rgba(241,122,138,0.35)" stroke-width="1" stroke-dasharray="4 4" />`;
+      html += `<text x="${W - padR - 4}" y="${threshY - 5}" text-anchor="end" fill="#f17a8a" font-size="9" font-family="JetBrains Mono">Trigger Threshold (1009 hPa)</text>`;
+      // Severity Bars (1-10)
+      data.forEach((d, i) => {
+        const x = padL + i * stepX;
+        if (d.severity > 0) {
+          const barH = (d.severity / 10) * plotH;
+          const barY = padT + plotH - barH;
+          html += `<rect x="${x - 10}" y="${barY}" width="20" height="${barH}" rx="5" fill="rgba(230, 77, 100, 0.72)" stroke="#f7aab3" stroke-width="1" />`;
+          html += `<text x="${x}" y="${barY - 5}" text-anchor="middle" fill="#fbd0d5" font-size="10" font-weight="bold" font-family="JetBrains Mono">${d.severity}</text>`;
+        }
+        // X-axis label
+        if (i % 2 === 0 || i === data.length - 1) {
+          html += `<text x="${x}" y="${H - 10}" text-anchor="middle" fill="#a1a1aa" font-size="10" font-family="Inter">${d.day}</text>`;
+        }
+      });
+      // Barometric Pressure Line Path
+      const pts = data.map((d, i) => {
+        const x = padL + i * stepX;
+        const y = padT + plotH - ((d.hpa - minHpa) / (maxHpa - minHpa)) * plotH;
+        return `${x},${y}`;
+      });
+      html += `<polyline fill="none" stroke="#38bdf8" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" points="${pts.join(' ')}" />`;
+      // Interactive Nodes
+      data.forEach((d, i) => {
+        const x = padL + i * stepX;
+        const y = padT + plotH - ((d.hpa - minHpa) / (maxHpa - minHpa)) * plotH;
+        const isDrop = d.hpa <= 1011;
+        html += `
+          <circle cx="${x}" cy="${y}" r="${isDrop ? 5.5 : 4}" fill="${isDrop ? '#f43f5e' : '#38bdf8'}" stroke="#0a0a0e" stroke-width="2" class="cursor-pointer"
+            onmouseenter="showWeatherTooltip('${d.day}', ${d.hpa}, ${d.severity}, '${d.note.replace(/'/g, "\\'")}')"
+            onmouseleave="hideWeatherTooltip()" />
+        `;
+      });
+      svg.innerHTML = html;
+    }
+    function showWeatherTooltip(day, hpa, sev, note) {
+      const tip = document.getElementById('weather-chart-tooltip');
+      if (!tip) return;
+      tip.classList.remove('hidden');
+      tip.innerHTML = `<div class="font-bold text-white">${day} • ${hpa} hPa</div><div class="text-roseblush-300">Migraine Severity: ${sev}/10</div><div class="text-zinc-400">${note}</div>`;
+    }
+    function hideWeatherTooltip() {
+      const tip = document.getElementById('weather-chart-tooltip');
+      if (tip) tip.classList.add('hidden');
+    }
+    function simulateNewWeatherAttack() {
+      applyWeatherScenario('chinook');
+    }
+    // =========================================================================
+    // GOAL 2: TRIGGER CORRELATION & CRANIAL PAIN MAP
+    // =========================================================================
+    function renderTriggerCorrelations() {
+      const container = document.getElementById('trigger-correlation-list');
+      if (!container) return;
+      container.innerHTML = appState.triggers.map(t => `
+        <div class="p-3 rounded-2xl bg-obsidian-950/75 border border-white/5 hover:border-roseblush-400/30 transition">
+          <div class="flex items-center justify-between text-xs mb-1.5">
+            <span class="font-semibold text-white flex items-center gap-2">
+              <i class="ph-fill ${t.icon} text-roseblush-400 text-base"></i>
+              ${t.name}
+            </span>
+            <div class="flex items-center gap-2 font-mono">
+              <span class="text-[11px] px-2 py-0.5 rounded bg-white/5 text-zinc-300">${t.lift}</span>
+              <span class="font-bold text-roseblush-300">${t.pct}%</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r ${t.color} rounded-full transition-all duration-500" style="width: ${t.pct}%"></div>
+          </div>
+        </div>
+      `).join('');
+      const top2 = appState.triggers.slice(0, 2).map(t => `${t.name.split(' ')[0]} (${t.pct}%)`).join(', ');
+      document.getElementById('card2-sub').textContent = `Top triggers: ${top2}`;
+    }
+    function selectCranialZone(zoneName) {
+      const descriptions = {
+        'Left Frontal-Temporal': 'Strongly linked with trigeminal barometric sensitivity and screen glare (64% of your attacks). Responds 2.1x faster to early gepant/triptan dosing.',
+        'Right Frontal-Temporal': 'Present in 18% of attacks, predominantly associated with sleep architecture disruption and afternoon dehydration.',
+        'Retro-Orbital (Behind Eyes)': 'Present in 42% of episodes; frequently accompanied by photophobia and visual aura 25 minutes prior.',
+        'Occipital & Cervical Base': 'Starts as dull C1/C2 neck stiffness during barometric pressure troughs before radiating forward.'
+      };
+      document.getElementById('cranial-zone-title').textContent = zoneName;
+      document.getElementById('cranial-zone-desc').textContent = descriptions[zoneName] || '';
+      document.querySelectorAll('.cranial-zone').forEach(el => el.classList.remove('active'));
+      if (zoneName.includes('Left')) document.getElementById('zone-left')?.classList.add('active');
+      if (zoneName.includes('Right')) document.getElementById('zone-right')?.classList.add('active');
+      if (zoneName.includes('Retro')) document.getElementById('zone-ocular')?.classList.add('active');
+      if (zoneName.includes('Occipital')) document.getElementById('zone-occipital')?.classList.add('active');
+      mesh.logTurn('thought', `Inspected cranial pain region: ${zoneName}`);
+      renderMeshConsole();
+    }
+    // =========================================================================
+    // GOAL 3: TEMPORAL & CIRCADIAN PATTERN CHARTS
+    // =========================================================================
+    function renderPatternModule() {
+      const dowEl = document.getElementById('dow-bars-container');
+      if (dowEl) {
+        dowEl.innerHTML = appState.dowStats.map(d => {
+          const isPeak = d.pct >= 70;
+          return `
+            <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+              <span class="text-[10px] font-mono ${isPeak ? 'text-roseblush-300 font-bold' : 'text-zinc-500'}">${d.count}</span>
+              <div class="w-full rounded-t-lg transition-all duration-500 ${isPeak ? 'bg-gradient-to-t from-roseblush-600 to-roseblush-400 shadow-lg shadow-roseblush-500/20' : 'bg-zinc-800 hover:bg-zinc-700'}" style="height: ${Math.max(15, d.pct)}%"></div>
+              <span class="text-[11px] font-medium ${isPeak ? 'text-white font-bold' : 'text-zinc-400'}">${d.day}</span>
+            </div>
+          `;
+        }).join('');
+      }
+      const circEl = document.getElementById('circadian-bars-container');
+      if (circEl) {
+        circEl.innerHTML = appState.circadianStats.map(c => `
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-zinc-300 font-medium">${c.window}</span>
+              <span class="font-mono text-zinc-400">${c.pct}%</span>
+            </div>
+            <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+              <div class="h-full ${c.color} rounded-full" style="width: ${c.pct}%"></div>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+    // =========================================================================
+    // GOAL 5: MEDICATION TIMING GOLDEN WINDOW & MOH TRACKER
+    // =========================================================================
+    function renderMedicationModule() {
+      const listEl = document.getElementById('med-log-list');
+      if (listEl) {
+        listEl.innerHTML = appState.medLogs.map(m => {
+          const isEarly = m.delayMins <= 60;
+          return `
+            <div class="p-2.5 rounded-xl bg-obsidian-950/90 border border-white/5 flex items-center justify-between gap-2 text-xs">
+              <div>
+                <div class="font-semibold text-white flex items-center gap-2">
+                  <span>${m.med}</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded ${isEarly ? 'bg-emerald-500/15 text-emerald-300' : 'bg-amber-500/15 text-amber-300'}">
+                    Dosed @ +${m.delayMins}m
+                  </span>
+                </div>
+                <div class="text-[11px] text-zinc-500 mt-0.5">${m.date} • ${m.kind}</div>
+              </div>
+              <div class="text-right font-mono text-[11px] ${isEarly ? 'text-emerald-300' : 'text-amber-300'}">
+                ${m.relief}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+      // Calculate MOH Days (Triptans / NSAIDs count toward 10-day monthly limit; Gepants do not)
+      const mohCount = appState.medLogs.filter(m => m.isAcuteMOH).length;
+      const mohBadge = document.getElementById('moh-badge');
+      if (mohBadge) {
+        mohBadge.textContent = `MOH Safe: ${mohCount} / 10 Acute Days`;
+        mohBadge.className = mohCount >= 8
+          ? 'px-3 py-1 rounded-full bg-roseblush-500/20 border border-roseblush-400/40 text-roseblush-300 text-xs font-mono font-semibold'
+          : 'px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-semibold';
+      }
+      document.getElementById('card5-sub').textContent = `Golden 60m window ready • MOH safety: ${mohCount}/10 days`;
+    }
+    function logQuickMedication(medName, kind, isAcuteMOH) {
+      const elapsedMins = Math.max(5, 60 - Math.floor(appState.goldenTimerSeconds / 60));
+      const entry = {
+        id: Date.now(),
+        med: medName,
+        kind,
+        delayMins: elapsedMins,
+        relief: elapsedMins <= 60 ? 'Predicted 88% Relief (<60m Golden Window)' : 'Logged (Monitor Relief)',
+        date: 'Just Now',
+        isAcuteMOH
+      };
+      appState.medLogs.unshift(entry);
+      mesh.logTurn('action', `Logged medication ${medName} (${kind}) at +${elapsedMins}m into Golden Window`);
+      saveAppState();
+      renderMedicationModule();
+      renderMeshConsole();
+      showToast('Medication Logged to Mesh', `${medName} recorded at +${elapsedMins}m (Golden Window).`);
+    }
+    function startGoldenWindowFromRadar() {
+      appState.goldenTimerSeconds = 60 * 60;
+      appState.goldenTimerRunning = true;
+      focusGoalModule(5, 'Track medication timing better');
+      showToast('60-Minute Golden Window Started', 'Take acute treatment before central sensitization locks in.');
+    }
+    function toggleGoldenTimer() {
+      if (appState.goldenTimerRunning) {
+        appState.goldenTimerRunning = false;
+      } else {
+        appState.goldenTimerSeconds = 60 * 60;
+        appState.goldenTimerRunning = true;
+      }
+      updateGoldenTimerUI();
+    }
+    function updateGoldenTimerUI() {
+      const mins = Math.floor(appState.goldenTimerSeconds / 60);
+      const secs = appState.goldenTimerSeconds % 60;
+      const disp = document.getElementById('golden-timer-display');
+      if (disp) disp.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+    setInterval(() => {
+      if (appState.goldenTimerRunning && appState.goldenTimerSeconds > 0) {
+        appState.goldenTimerSeconds--;
+        updateGoldenTimerUI();
+      }
+    }, 1000);
+    // =========================================================================
+    // GOAL 4: 7-DAY LOW-RISK WEEK PLANNER & SMART RESCHEDULER
+    // =========================================================================
+    function renderWeekPlanner() {
+      const grid = document.getElementById('week-planner-grid');
+      if (!grid) return;
+      let highRiskConflicts = 0;
+      grid.innerHTML = appState.weekPlan.map((d, dayIdx) => {
+        const badgeStyle = d.risk === 'LOW'
+          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/30'
+          : (d.risk === 'HIGH' ? 'bg-roseblush-500/25 text-roseblush-300 border-roseblush-400/40' : 'bg-amber-500/20 text-amber-300 border-amber-400/30');
+        const cardBorder = d.risk === 'HIGH'
+          ? 'border-roseblush-500/40 bg-roseblush-950/20'
+          : (d.risk === 'LOW' ? 'border-emerald-500/25 bg-obsidian-950/80' : 'border-white/10 bg-obsidian-950/60');
+        return `
+          <div class="rounded-2xl p-3.5 border ${cardBorder} flex flex-col justify-between min-h-[210px]">
+            <div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-sm text-white">${d.name}</span>
+                  <span class="text-xs text-zinc-500 ml-1">${d.date}</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${badgeStyle}">
+                  ${d.risk} ${d.riskPct}%
+                </span>
+              </div>
+              <div class="text-[11px] font-mono text-zinc-400 mt-1 flex items-center gap-1">
+                <i class="ph-duotone ph-gauge"></i> ${d.hpa}
+              </div>
+              <!-- Tasks List -->
+              <div class="mt-3 space-y-2">
+                ${d.tasks.map(t => {
+                  const isConflict = d.risk === 'HIGH' && t.strain === 'high';
+                  if (isConflict) highRiskConflicts++;
+                  return `
+                    <div class="p-2 rounded-xl text-xs border ${isConflict ? 'bg-roseblush-500/20 border-roseblush-400/50 text-roseblush-100' : 'bg-obsidian-900 border-white/10 text-zinc-200'}">
+                      <div class="flex items-start justify-between gap-1">
+                        <span class="font-medium leading-snug">${t.title}</span>
+                        <button onclick="removePlannerTask(${dayIdx}, ${t.id})" class="text-zinc-500 hover:text-white shrink-0" title="Remove task">×</button>
+                      </div>
+                      <div class="mt-1 flex items-center justify-between text-[10px] font-mono">
+                        <span class="${t.strain === 'high' ? 'text-amber-300' : 'text-emerald-300'}">${t.strain.toUpperCase()} LOAD</span>
+                        ${isConflict ? '<span class="text-roseblush-300 font-bold">⚠️ Risk Clash</span>' : ''}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-white/5 text-[10px] font-mono text-zinc-500">
+              ${d.risk === 'LOW' ? '✓ Optimal for Deep Work' : (d.risk === 'HIGH' ? '⚡ Protect & Pre-hydrate' : 'Pace Screen Time')}
+            </div>
+          </div>
+        `;
+      }).join('');
+      const lowDays = appState.weekPlan.filter(d => d.risk === 'LOW').length;
+      document.getElementById('card4-sub').textContent = `${lowDays} Green Low-Risk days ahead • ${highRiskConflicts} conflict(s)`;
+    }
+    function smartAutoRescheduleWeek() {
+      let movedCount = 0;
+      const lowRiskDays = appState.weekPlan.filter(d => d.risk === 'LOW');
+      appState.weekPlan.forEach(day => {
+        if (day.risk === 'HIGH') {
+          const stay = [];
+          day.tasks.forEach(t => {
+            if (t.strain === 'high' && lowRiskDays.length > 0) {
+              const targetDay = lowRiskDays[movedCount % lowRiskDays.length];
+              targetDay.tasks.push({ ...t, title: `${t.title} (Moved from ${day.name})` });
+              movedCount++;
+            } else {
+              stay.push(t);
+            }
+          });
+          day.tasks = stay;
+        }
+      });
+      if (movedCount > 0) {
+        mesh.logTurn('action', `Smart Rescheduler moved ${movedCount} high-strain task(s) from High-Risk storm days to Low-Risk days.`);
+        saveAppState();
+        renderWeekPlanner();
+        renderMeshConsole();
+        showToast('Week Optimized Around Low-Risk Days', `Moved ${movedCount} high-strain commitment(s) off storm days.`);
+      } else {
+        showToast('Schedule Already Optimal', 'Zero high-strain tasks remain on high-risk barometric days.');
+      }
+    }
+    function removePlannerTask(dayIdx, taskId) {
+      appState.weekPlan[dayIdx].tasks = appState.weekPlan[dayIdx].tasks.filter(t => t.id !== taskId);
+      saveAppState();
+      renderWeekPlanner();
+    }
+    function openAddTaskModal() {
+      document.getElementById('add-task-modal').classList.remove('hidden');
+      document.getElementById('add-task-modal').classList.add('flex');
+    }
+    function closeAddTaskModal() {
+      document.getElementById('add-task-modal').classList.add('hidden');
+      document.getElementById('add-task-modal').classList.remove('flex');
+    }
+    function submitNewTask() {
+      const title = document.getElementById('task-title-input').value.trim();
+      const dayIdx = parseInt(document.getElementById('task-day-input').value, 10);
+      const strain = document.getElementById('task-strain-input').value;
+      if (!title) return;
+      appState.weekPlan[dayIdx].tasks.push({
+        id: Date.now(),
+        title,
+        strain
+      });
+      document.getElementById('task-title-input').value = '';
+      closeAddTaskModal();
+      mesh.logTurn('action', `Added commitment '${title}' (${strain} load) to ${appState.weekPlan[dayIdx].name}`);
+      saveAppState();
+      renderWeekPlanner();
+      renderMeshConsole();
+      showToast('Commitment Scheduled', `Added "${title}" to ${appState.weekPlan[dayIdx].name}.`);
+    }
+    // =========================================================================
+    // EPISODE TABLE & MODAL LOGGING
+    // =========================================================================
+    function renderEpisodesTable() {
+      const container = document.getElementById('episodes-table-container');
+      if (!container) return;
+      container.innerHTML = appState.episodes.map((ep, idx) => `
+        <div class="p-3.5 rounded-2xl bg-obsidian-950/85 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-roseblush-500/15 text-roseblush-300 border border-roseblush-400/20">
+                auramesh.episodes.${idx}
+              </span>
+              <span class="font-bold text-xs text-white">${ep.date}</span>
+              <span class="text-xs text-zinc-400">• ${ep.zone}</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-0.5">
+              ${ep.triggers.map(tr => `<span class="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-zinc-300 border border-white/10">${tr}</span>`).join('')}
+            </div>
+            <p class="text-xs text-zinc-400">${ep.notes}</p>
+          </div>
+          <div class="shrink-0 flex sm:flex-col items-end justify-between">
+            <span class="px-2.5 py-1 rounded-xl font-mono font-bold text-xs ${ep.severity >= 7 ? 'bg-roseblush-500/25 text-roseblush-300 border border-roseblush-400/30' : 'bg-amber-500/20 text-amber-300'}">
+              Pain ${ep.severity}/10
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+    function openQuickLogModal() {
+      document.getElementById('quick-log-modal').classList.remove('hidden');
+      document.getElementById('quick-log-modal').classList.add('flex');
+    }
+    function closeQuickLogModal() {
+      document.getElementById('quick-log-modal').classList.add('hidden');
+      document.getElementById('quick-log-modal').classList.remove('flex');
+    }
+    function toggleModalTrigger(btn) {
+      btn.classList.toggle('active');
+      if (btn.classList.contains('active')) {
+        btn.className = 'modal-trig-btn active px-3 py-1.5 rounded-xl text-xs font-medium bg-roseblush-500/25 border border-roseblush-400 text-roseblush-200';
+      } else {
+        btn.className = 'modal-trig-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-obsidian-950 border border-white/10 text-zinc-400';
+      }
+    }
+    function submitNewEpisode() {
+      const severity = parseInt(document.getElementById('modal-severity-input').value, 10);
+      const onset = document.getElementById('modal-onset-window').value;
+      const zone = document.getElementById('modal-pain-zone').value;
+      const notes = document.getElementById('modal-episode-notes').value.trim() || `Logged during ${ onset } window.`;
+      const selectedTriggers = Array.from(document.querySelectorAll('.modal-trig-btn.active')).map(b => b.getAttribute('data-trig'));
+      const newEp = {
+        id: Date.now(),
+        date: `Today • ${onset.split(' ')[0]}`,
+        severity,
+        zone,
+        triggers: selectedTriggers.length ? selectedTriggers : ['Unclassified'],
+        notes
+      };
+      appState.episodes.unshift(newEp);
+      // Dynamically boost trigger correlation percentages for selected triggers
+      appState.triggers.forEach(t => {
+        if (selectedTriggers.some(sel => t.name.toLowerCase().includes(sel.split(' ')[0].toLowerCase()))) {
+          t.count += 1;
+          t.pct = Math.min(96, t.pct + 3);
+        }
+      });
+      appState.triggers.sort((a, b) => b.pct - a.pct);
+      mesh.logTurn('human', `Logged new episode: severity ${severity}/10, zone=${zone}, triggers=${selectedTriggers.join(', ')}`);
+      closeQuickLogModal();
+      saveAppState();
+      renderAll();
+      showToast('Episode Indexed in SignalMesh', `Recalculated trigger correlations across ${appState.episodes.length} episodes.`);
+    }
+    // =========================================================================
+    // SIGNALMESH CONSOLE, FTS QUERY & COORDINATE DRAWER
+    // =========================================================================
+    function renderMeshConsole(queryStr = '') {
+      const stream = document.getElementById('mesh-console-stream');
+      if (!stream) return;
+      const hits = mesh.q(queryStr, 14);
+      stream.innerHTML = hits.map(c => `
+        <div class="p-2 rounded-xl bg-obsidian-900/90 border border-white/5 hover:border-roseblush-400/30 transition">
+          <div class="flex items-center justify-between text-[10px]">
+            <span class="text-roseblush-300 font-semibold">[${c.coord}]</span>
+            <span class="px-1.5 py-0.2 rounded bg-white/5 text-zinc-400">${c.grid}/${c.kind}</span>
+          </div>
+          <div class="text-zinc-200 mt-0.5 truncate"><strong class="text-white">${c.name}:</strong> ${c.value}</div>
+        </div>
+      `).join('');
+    }
+    function runMeshQuery(val) {
+      renderMeshConsole(val);
+    }
+    function runMeshThinkPrompt() {
+      const input = document.getElementById('mesh-fts-input');
+      const thought = input.value.trim() || 'Analyze active barometric drop (-6.8 hPa) + Saturday let-down correlation';
+      const coord = mesh.logTurn('thought', `[CLASSIFY: EXISTING] ${thought} -> Matched 4 barometric episodes & Golden Window protocol.`);
+      input.value = '';
+      renderMeshConsole();
+      showToast('SignalMesh think() Executed', `Logged thought cell [${coord}] and traced matching coordinates.`);
+    }
+    function toggleMeshDrawer() {
+      const drawer = document.getElementById('mesh-drawer');
+      drawer.classList.toggle('translate-x-full');
+      renderMeshDrawerContent();
+    }
+    function setMeshDrawerGrid(gridName) {
+      appState.activeMeshDrawerGrid = gridName;
+      renderMeshDrawerContent();
+    }
+    function renderMeshDrawerContent() {
+      const tabsEl = document.getElementById('mesh-drawer-grid-tabs');
+      const cellsEl = document.getElementById('mesh-drawer-cells');
+      if (!tabsEl || !cellsEl) return;
+      const stats = mesh.stats();
+      const grids = ['all', ...Object.keys(stats.grids)];
+      tabsEl.innerHTML = grids.map(g => `
+        <button onclick="setMeshDrawerGrid('${g}')" class="px-2.5 py-1 rounded-lg text-xs font-mono ${appState.activeMeshDrawerGrid === g ? 'bg-roseblush-500 text-white font-bold' : 'bg-obsidian-950 text-zinc-400 hover:text-white'}">
+          ${g} ${g === 'all' ? `(${stats.total_cells})` : `(${stats.grids[g]})`}
+        </button>
+      `).join('');
+      const allCells = Array.from(mesh.cells.values()).reverse();
+      const filtered = appState.activeMeshDrawerGrid === 'all'
+        ? allCells
+        : allCells.filter(c => c.grid === appState.activeMeshDrawerGrid);
+      cellsEl.innerHTML = filtered.map(c => `
+        <div class="p-3 rounded-xl bg-obsidian-950 border border-white/10 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-roseblush-300 font-bold">${c.coord}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-zinc-400">${c.grid} • ${c.kind}</span>
+          </div>
+          <div class="text-white font-semibold">${c.name}</div>
+          <div class="text-zinc-400 break-words leading-relaxed">${c.value}</div>
+        </div>
+      `).join('');
+    }
+    // =========================================================================
+    // NAVIGATION, SCREENSHOT GOAL FOCUS & SENSORY-SAFE MODE
+    // =========================================================================
+    function focusGoalModule(goalNum, goalText) {
+      const modal = document.getElementById('launcher-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        toggleLauncherModal();
+      }
+      const target = document.getElementById(`goal-module-${goalNum}`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.classList.add('ring-2', 'ring-roseblush-400');
+        setTimeout(() => target.classList.remove('ring-2', 'ring-roseblush-400'), 1800);
+      }
+      mesh.logTurn('human', `Focused Goal #${goalNum}: "${goalText}"`);
+      renderMeshConsole();
+      showToast(`Focused Goal #${goalNum}`, goalText);
+    }
+    function toggleLauncherModal() {
+      const modal = document.getElementById('launcher-modal');
+      const container = document.getElementById('modal-launcher-cards');
+      const source = document.getElementById('screenshot-launcher-stack');
+      if (container && source) {
+        container.innerHTML = source.innerHTML;
+      }
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+    function togglePhotophobiaMode() {
+      document.body.classList.toggle('photophobia-mode');
+      const isOn = document.body.classList.contains('photophobia-mode');
+      document.getElementById('photophobia-label').textContent = isOn ? 'Sensory-Safe ON' : 'Sensory-Safe';
+      showToast(
+        isOn ? 'Photophobia Low-Glare Mode Active' : 'Standard Contrast Restored',
+        isOn ? 'Blue light & peak luminance reduced for active migraine comfort.' : 'Full spectrum display restored.'
+      );
+    }
+    let toastTimeout = null;
+    function showToast(title, msg) {
+      const banner = document.getElementById('toast-banner');
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-msg').textContent = msg;
+      banner.classList.remove('hidden');
+      banner.classList.add('flex');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        banner.classList.add('hidden');
+        banner.classList.remove('flex');
+      }, 3600);
+    }
+    function renderAll() {
+      syncStateToSignalMesh();
+      renderRadarModule();
+      renderWeatherCorrelationChart();
+      renderTriggerCorrelations();
+      renderPatternModule();
+      renderMedicationModule();
+      renderWeekPlanner();
+      renderEpisodesTable();
+      renderMeshConsole();
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      mesh.logTurn('thought', 'AuraMesh initialized. Charted 6 core migraine intelligence grids into local SignalMesh.');
+      renderAll();
+      updateGoldenTimerUI();
+    });
+  </script>
+</body>
+</html>
